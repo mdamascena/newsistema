@@ -39,3 +39,9 @@ next-env.d.ts
 # icon generated file
 src/assets/iconify-icons/generated-icons.js
 src/assets/iconify-icons/generated-icons.css
+
+# large vendor archives (do not commit)
+vuexy-admin-v10.11.1/
+*.zip
+*.zip
+*.zip
