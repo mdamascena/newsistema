@@ -41,7 +41,7 @@ const LoginIllustration = styled('img')(({ theme }) => ({
     blockSize: 'auto',
     maxBlockSize: 680,
     maxInlineSize: '100%',
-    margin: theme.spacing(12),
+    margin: theme.spacing(0),
     [theme.breakpoints.down(1536)]: {
         maxBlockSize: 550
     },
@@ -91,12 +91,9 @@ const LoginV2 = ({ mode }) => {
     return (
         <div className="flex bs-full justify-center">
             <div
-                className={classnames(
-                    'flex bs-full items-center justify-center flex-1 min-bs-[100dvh] relative p-6 max-md:hidden',
-                    {
-                        'border-ie': settings.skin === 'bordered'
-                    }
-                )}
+                className={classnames('flex bs-full items-center justify-center flex-1 relative max-md:hidden', {
+                    'border-ie': settings.skin === 'bordered'
+                })}
             >
                 <LoginIllustration src={characterIllustration} alt="character-illustration" />
                 {!hidden && (
@@ -107,10 +104,10 @@ const LoginV2 = ({ mode }) => {
                     />
                 )}
             </div>
-            <div className="flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]">
+            <div className="flex justify-center items-center bs-full bg-backgroundPaper min-is-full! p-6 md:min-is-[unset]! md:p-12 md:is-[480px]">
                 <Link
                     href={getLocalizedUrl('/', locale)}
-                    className="absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]"
+                    className="absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:start-[38px]"
                 >
                     <Logo />
                 </Link>

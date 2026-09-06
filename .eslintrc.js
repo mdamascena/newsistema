@@ -7,7 +7,8 @@ module.exports = {
   "ignorePatterns": [
     "next-env.d.ts",
     ".next/**",
-    "node_modules/**"
+    "node_modules/**",
+    "src/assets/iconify-icons/bundle-icons-css.mjs"
   ],
   "rules": {
     "jsx-a11y/alt-text": "off",
