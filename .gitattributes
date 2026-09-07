@@ -1,0 +1,22 @@
+# Normaliza o fim de linha independentemente do core.autocrlf de cada
+# máquina. O repositório e o working tree passam a usar LF, alinhados ao
+# .editorconfig (end_of_line = lf) e ao padrão do Prettier (endOfLine: lf).
+* text=auto eol=lf
+
+# Binários: nunca converter.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.db   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+
+# Arquivo gerado: colapsa o diff na interface do GitHub.
+package-lock.json linguist-generated=true
