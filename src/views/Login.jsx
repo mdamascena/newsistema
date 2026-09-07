@@ -17,13 +17,12 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Divider from '@mui/material/Divider';
-import Alert from '@mui/material/Alert';
 
 // Third-party Imports
 import { signIn } from 'next-auth/react';
 import { Controller, useForm } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
-import { email, object, minLength, string, pipe, nonEmpty } from 'valibot';
+import { object, minLength, string, pipe, nonEmpty, regex, transform } from 'valibot';
 import classnames from 'classnames';
 
 // Component Imports
@@ -62,12 +61,13 @@ const MaskImg = styled('img')({
 });
 
 const schema = object({
-    email: pipe(string(), minLength(1, 'This field is required'), email('Email is invalid')),
-    password: pipe(
+    cpf: pipe(
         string(),
-        nonEmpty('This field is required'),
-        minLength(5, 'Password must be at least 5 characters long')
-    )
+        nonEmpty('Informe o CPF'),
+        transform((value) => value.replace(/D/g, '')),
+        regex(/^d{11}$/, 'O CPF deve ter 11 dígitos')
+    ),
+    password: pipe(string(), nonEmpty('Informe a senha'), minLength(5, 'A senha deve ter ao menos 5 caracteres'))
 });
 
 const Login = ({ mode }) => {
@@ -99,8 +99,8 @@ const Login = ({ mode }) => {
     } = useForm({
         resolver: valibotResolver(schema),
         defaultValues: {
-            email: 'admin@vuexy.com',
-            password: 'admin'
+            cpf: '',
+            password: ''
         }
     });
 
@@ -116,7 +116,7 @@ const Login = ({ mode }) => {
 
     const onSubmit = async (data) => {
         const res = await signIn('credentials', {
-            email: data.email,
+            cpf: data.cpf,
             password: data.password,
             redirect: false
         });
@@ -155,14 +155,8 @@ const Login = ({ mode }) => {
                 <div className="flex flex-col gap-6 is-full sm:is-auto md:is-full sm:max-is-[400px] md:max-is-[unset] mbs-8 sm:mbs-11 md:mbs-0">
                     <div className="flex flex-col gap-1">
                         <Typography variant="h4">{`Bem vindo a ${themeConfig.templateName}! 👋🏻`}</Typography>
-                        <Typography>Please sign-in to your account and start the adventure</Typography>
+                        <Typography>Entre com seu CPF e senha para acessar o sistema</Typography>
                     </div>
-                    <Alert icon={false} className="bg-[var(--mui-palette-primary-lightOpacity)]">
-                        <Typography variant="body2" color="primary.main">
-                            Email: <span className="font-medium">admin@vuexy.com</span> / Pass:{' '}
-                            <span className="font-medium">admin</span>
-                        </Typography>
-                    </Alert>
                     <form
                         noValidate
                         autoComplete="off"
@@ -171,7 +165,7 @@ const Login = ({ mode }) => {
                         className="flex flex-col gap-6"
                     >
                         <Controller
-                            name="email"
+                            name="cpf"
                             control={control}
                             rules={{ required: true }}
                             render={({ field }) => (
@@ -179,16 +173,17 @@ const Login = ({ mode }) => {
                                     {...field}
                                     autoFocus
                                     fullWidth
-                                    type="email"
-                                    label="Email"
-                                    placeholder="Enter your email"
+                                    type="text"
+                                    label="CPF"
+                                    placeholder="Somente números"
+                                    slotProps={{ htmlInput: { inputMode: 'numeric', maxLength: 14 } }}
                                     onChange={(e) => {
                                         field.onChange(e.target.value);
                                         errorState !== null && setErrorState(null);
                                     }}
-                                    {...((errors.email || errorState !== null) && {
+                                    {...((errors.cpf || errorState !== null) && {
                                         error: true,
-                                        helperText: errors?.email?.message || errorState?.message[0]
+                                        helperText: errors?.cpf?.message || errorState?.message[0]
                                     })}
                                 />
                             )}

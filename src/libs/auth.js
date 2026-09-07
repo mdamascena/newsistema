@@ -4,56 +4,79 @@ import GoogleProvider from 'next-auth/providers/google';
 
 const hasGoogleProvider = Boolean(process.env.GOOGLE_CLIENT_ID?.trim() && process.env.GOOGLE_CLIENT_SECRET?.trim());
 
+// Chave longa que o .NET usa quando ClaimTypes.Role não é mapeado para o nome curto
+const MS_ROLE_CLAIM = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+
+/*
+ * Lê o payload do JWT emitido pela Valoreal.Auth.Api.
+ * Não valida a assinatura de propósito: a validação é responsabilidade do
+ * backend, que confere o token a cada requisição. Aqui os dados servem apenas
+ * para popular a sessão (nome, papel), nunca para autorizar uma ação.
+ */
+const readTokenPayload = (accessToken) => {
+    try {
+        const payload = accessToken.split('.')[1];
+
+        if (!payload) return {};
+
+        return JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
+    } catch {
+        return {};
+    }
+};
+
+const authError = (...messages) => new Error(JSON.stringify({ message: messages }));
+
 const providers = [
     CredentialProvider({
-        // ** The name to display on the sign in form (e.g. 'Sign in with...')
-        // ** For more details on Credentials Provider, visit https://next-auth.js.org/providers/credentials
         name: 'Credentials',
         type: 'credentials',
-
-        /*
-         * As we are using our own Sign-in page, we do not need to change
-         * username or password attributes manually in following credentials object.
-         */
         credentials: {},
         async authorize(credentials) {
-            /*
-             * You need to provide your own logic here that takes the credentials submitted and returns either
-             * an object representing a user or value that is false/null if the credentials are invalid.
-             * For e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-             * You can also use the `req` object to obtain additional parameters (i.e., the request IP address)
-             */
-            const { email, password } = credentials;
+            const { cpf, password } = credentials;
+
+            let res;
 
             try {
-                // ** Login API Call to match the user credentials and receive user data in response along with his role
-                const res = await fetch(`${process.env.API_URL}/login`, {
+                res = await fetch(`${process.env.AUTH_API_URL}/auth/login`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cpf, password })
                 });
-
-                const data = await res.json();
-
-                if (res.status === 401) {
-                    throw new Error(JSON.stringify(data));
-                }
-
-                if (res.status === 200) {
-                    /*
-                     * Please unset all the sensitive information of the user either from API response or before returning
-                     * user data below. Below return statement will set the user object in the token and the same is set in
-                     * the session which will be accessible all over the app.
-                     */
-                    return data;
-                }
-
-                return null;
-            } catch (e) {
-                throw new Error(e.message);
+            } catch {
+                throw authError('Não foi possível conectar ao servidor de autenticação');
             }
+
+            if (res.status === 401) {
+                throw authError('CPF ou senha inválidos');
+            }
+
+            if (!res.ok) {
+                throw authError(`Erro inesperado na autenticação (HTTP ${res.status})`);
+            }
+
+            const { accessToken, refreshToken } = await res.json();
+
+            if (!accessToken) {
+                throw authError('O servidor de autenticação não retornou um token');
+            }
+
+            const payload = readTokenPayload(accessToken);
+
+            /*
+             * O expiresIn devolvido pela API não é usado: hoje ele informa 3600,
+             * mas o token é gerado com 30 minutos de validade. O `exp` do próprio
+             * JWT é a fonte confiável.
+             */
+            return {
+                id: payload.sub ?? null,
+                name: payload.cpf ?? cpf,
+                cpf: payload.cpf ?? cpf,
+                role: payload.role ?? payload[MS_ROLE_CLAIM] ?? null,
+                accessToken,
+                refreshToken: refreshToken ?? null,
+                accessTokenExpiresAt: payload.exp ? payload.exp * 1000 : null
+            };
         }
     })
 ];
@@ -68,56 +91,48 @@ if (hasGoogleProvider) {
 }
 
 export const authOptions = {
-    // ** Configure one or more authentication providers
-    // ** Please refer to https://next-auth.js.org/configuration/options#providers for more `providers` options
     providers,
 
-    // ** Please refer to https://next-auth.js.org/configuration/options#session for more `session` options
     session: {
-        /*
-         * Choose how you want to save the user session.
-         * The default is `jwt`, an encrypted JWT (JWE) stored in the session cookie.
-         * If you use an `adapter` however, NextAuth default it to `database` instead.
-         * You can still force a JWT session by explicitly defining `jwt`.
-         * When using `database`, the session cookie will only contain a `sessionToken` value,
-         * which is used to look up the session in the database.
-         * If you use a custom credentials provider, user accounts will not be persisted in a database by NextAuth.js (even if one is configured).
-         * The option to use JSON Web Tokens for session tokens must be enabled to use a custom credentials provider.
-         */
         strategy: 'jwt',
 
-        // ** Seconds - How long until an idle session expires and is no longer valid
-        maxAge: 30 * 24 * 60 * 60 // ** 30 days
+        /*
+         * Alinhado ao tempo de vida real do token da Auth.Api (30 minutos).
+         * Sem renovação implementada, uma sessão mais longa que o token faria o
+         * usuário parecer logado enquanto toda chamada ao backend responde 401.
+         */
+        maxAge: 30 * 60
     },
 
-    // ** Please refer to https://next-auth.js.org/configuration/options#pages for more `pages` options
     pages: {
         signIn: '/login'
     },
 
-    // ** Please refer to https://next-auth.js.org/configuration/options#callbacks for more `callbacks` options
     callbacks: {
-        /*
-         * While using `jwt` as a strategy, `jwt()` callback will be called before
-         * the `session()` callback. So we have to add custom parameters in `token`
-         * via `jwt()` callback to make them accessible in the `session()` callback
-         */
         async jwt({ token, user }) {
             if (user) {
-                /*
-                 * For adding custom parameters to user in session, we first need to add those parameters
-                 * in token which then will be available in the `session()` callback
-                 */
+                token.id = user.id;
                 token.name = user.name;
+                token.cpf = user.cpf;
+                token.role = user.role;
+                token.accessToken = user.accessToken;
+                token.refreshToken = user.refreshToken;
+                token.accessTokenExpiresAt = user.accessTokenExpiresAt;
             }
 
             return token;
         },
         async session({ session, token }) {
             if (session.user) {
-                // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
+                session.user.id = token.id;
                 session.user.name = token.name;
+                session.user.cpf = token.cpf;
+                session.user.role = token.role;
             }
+
+            // Token repassado ao client para chamar a Loans.Api
+            session.accessToken = token.accessToken;
+            session.accessTokenExpiresAt = token.accessTokenExpiresAt;
 
             return session;
         }
