@@ -1,12 +1,8 @@
 // Third-party Imports
 import CredentialProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 
-const hasDatabaseUrl = Boolean(process.env.DATABASE_URL?.trim());
 const hasGoogleProvider = Boolean(process.env.GOOGLE_CLIENT_ID?.trim() && process.env.GOOGLE_CLIENT_SECRET?.trim());
-const prisma = hasDatabaseUrl ? new PrismaClient() : null;
 
 const providers = [
     CredentialProvider({
@@ -72,8 +68,6 @@ if (hasGoogleProvider) {
 }
 
 export const authOptions = {
-    ...(prisma ? { adapter: PrismaAdapter(prisma) } : {}),
-
     // ** Configure one or more authentication providers
     // ** Please refer to https://next-auth.js.org/configuration/options#providers for more `providers` options
     providers,
