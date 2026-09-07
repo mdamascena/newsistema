@@ -13,8 +13,7 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never",
-    "source.fixAll.stylelint": "explicit"
+    "source.organizeImports": "never"
   },
   // Extension: Git
   "git.rebaseWhenSync": true,
@@ -30,17 +29,6 @@
     "typescriptreact"
   ],
   "eslint.format.enable": true,
-  // Stylelint
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
-  "stylelint.enable": true,
-  "stylelint.validate": [
-    "css",
-    "scss",
-    "typescript",
-    "typescriptreact"
-  ],
   "markdown.extension.toc.updateOnSave": false,
   "files.insertFinalNewline": true,
   "editor.linkedEditing": true,

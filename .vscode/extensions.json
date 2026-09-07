@@ -20,7 +20,6 @@
     "esbenp.prettier-vscode",
     "yoavbls.pretty-ts-errors",
     "jasonnutter.search-node-modules",
-    "stylelint.vscode-stylelint",
     "styled-components.vscode-styled-components"
   ]
 }
