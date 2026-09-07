@@ -48,7 +48,6 @@
   "include": [
     "next.config.mjs",
     "**/*.js",
-    "**/*.js",
     ".next/dev/types/**/*.js",
     "**/*.jsx"
   ],

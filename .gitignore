@@ -43,5 +43,3 @@ src/assets/iconify-icons/generated-icons.css
 # large vendor archives (do not commit)
 vuexy-admin-v10.11.1/
 *.zip
-*.zip
-*.zip
