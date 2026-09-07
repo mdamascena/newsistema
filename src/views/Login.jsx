@@ -157,7 +157,7 @@ const Login = ({ mode }) => {
                 </div>
                 <div className="flex flex-col gap-6 is-full sm:is-auto md:is-full sm:max-is-[400px] md:max-is-[unset] mbs-8 sm:mbs-11 md:mbs-0">
                     <div className="flex flex-col gap-1">
-                        <Typography variant="h4">{`Bem vindo a ${themeConfig.templateName}! 👋🏻`}</Typography>
+                        <Typography variant="h4">{`Bem-vindo à ${themeConfig.templateName}! 👋🏻`}</Typography>
                         <Typography>Entre com seu CPF e senha para acessar o sistema</Typography>
                     </div>
                     <form
@@ -199,7 +199,7 @@ const Login = ({ mode }) => {
                                 <CustomTextField
                                     {...field}
                                     fullWidth
-                                    label="Password"
+                                    label="Senha"
                                     placeholder="············"
                                     id="login-password"
                                     type={isPasswordShown ? 'text' : 'password'}
@@ -231,26 +231,26 @@ const Login = ({ mode }) => {
                             )}
                         />
                         <div className="flex justify-between items-center gap-x-3 gap-y-1 flex-wrap">
-                            <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me" />
+                            <FormControlLabel control={<Checkbox defaultChecked />} label="Lembrar de mim" />
                             <Typography
                                 className="text-end"
                                 color="primary.main"
                                 component={Link}
                                 href={'/forgot-password'}
                             >
-                                Forgot password?
+                                Esqueceu a senha?
                             </Typography>
                         </div>
                         <Button fullWidth variant="contained" type="submit">
-                            Login
+                            Entrar
                         </Button>
                         <div className="flex justify-center items-center flex-wrap gap-2">
-                            <Typography>New on our platform?</Typography>
+                            <Typography>Novo por aqui?</Typography>
                             <Typography component={Link} href={'/register'} color="primary.main">
-                                Create an account
+                                Criar uma conta
                             </Typography>
                         </div>
-                        <Divider className="gap-2">or</Divider>
+                        <Divider className="gap-2">ou</Divider>
                         <Button
                             color="secondary"
                             className="self-center text-textPrimary"
@@ -258,7 +258,7 @@ const Login = ({ mode }) => {
                             sx={{ '& .MuiButton-startIcon': { marginInlineEnd: 3 } }}
                             onClick={() => signIn('google')}
                         >
-                            Sign in with Google
+                            Entrar com Google
                         </Button>
                     </form>
                 </div>

@@ -5,8 +5,8 @@ import Login from '@views/Login';
 import { getServerMode } from '@core/utils/serverHelpers';
 
 export const metadata = {
-    title: 'Login',
-    description: 'Login to your account'
+    title: 'Entrar',
+    description: 'Acesse sua conta'
 };
 
 const LoginPage = async () => {
