@@ -41,7 +41,10 @@ const providers = [
                 res = await fetch(`${process.env.AUTH_API_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ cpf, password })
+                    body: JSON.stringify({ cpf, password }),
+
+                    // Ver comentário em src/app/api/register/route.js
+                    signal: AbortSignal.timeout(10000)
                 });
             } catch {
                 throw authError('Não foi possível conectar ao servidor de autenticação');

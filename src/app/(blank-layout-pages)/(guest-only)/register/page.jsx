@@ -5,8 +5,8 @@ import Register from '@views/Register';
 import { getServerMode } from '@core/utils/serverHelpers';
 
 export const metadata = {
-    title: 'Register',
-    description: 'Register to your account'
+    title: 'Criar conta',
+    description: 'Crie sua conta de acesso'
 };
 
 const RegisterPage = async () => {
