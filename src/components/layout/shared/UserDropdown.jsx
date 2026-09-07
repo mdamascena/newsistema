@@ -126,28 +126,28 @@ const UserDropdown = () => {
                                         onClick={(e) => handleDropdownClose(e, '/pages/user-profile')}
                                     >
                                         <i className="tabler-user" />
-                                        <Typography color="text.primary">My Profile</Typography>
+                                        <Typography color="text.primary">Meu perfil</Typography>
                                     </MenuItem>
                                     <MenuItem
                                         className="mli-2 gap-3"
                                         onClick={(e) => handleDropdownClose(e, '/pages/account-settings')}
                                     >
                                         <i className="tabler-settings" />
-                                        <Typography color="text.primary">Settings</Typography>
+                                        <Typography color="text.primary">Configurações</Typography>
                                     </MenuItem>
                                     <MenuItem
                                         className="mli-2 gap-3"
                                         onClick={(e) => handleDropdownClose(e, '/pages/pricing')}
                                     >
                                         <i className="tabler-currency-dollar" />
-                                        <Typography color="text.primary">Pricing</Typography>
+                                        <Typography color="text.primary">Preços</Typography>
                                     </MenuItem>
                                     <MenuItem
                                         className="mli-2 gap-3"
                                         onClick={(e) => handleDropdownClose(e, '/pages/faq')}
                                     >
                                         <i className="tabler-help-circle" />
-                                        <Typography color="text.primary">FAQ</Typography>
+                                        <Typography color="text.primary">Faq</Typography>
                                     </MenuItem>
                                     <div className="flex items-center plb-2 pli-3">
                                         <Button
@@ -159,7 +159,7 @@ const UserDropdown = () => {
                                             onClick={handleUserLogout}
                                             sx={{ '& .MuiButton-endIcon': { marginInlineStart: 1.5 } }}
                                         >
-                                            Logout
+                                            Sair
                                         </Button>
                                     </div>
                                 </MenuList>
