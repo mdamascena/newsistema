@@ -17,34 +17,28 @@ import Customizer from '@core/components/customizer';
 import ScrollToTop from '@core/components/scroll-to-top';
 import AuthGuard from '@/hocs/AuthGuard';
 
-// Config Imports
-import { i18n } from '@configs/i18n';
-
 // Util Imports
-import { getDictionary } from '@/utils/getDictionary';
 import { getMode, getSystemMode } from '@core/utils/serverHelpers';
 
 const Layout = async (props) => {
-    const params = await props.params;
     const { children } = props;
 
     // Type guard to ensure lang is a valid Locale
-    const lang = i18n.locales.includes(params.lang) ? params.lang : i18n.defaultLocale;
 
     // Vars
-    const direction = i18n.langDirection[lang];
-    const dictionary = await getDictionary(lang);
+    const direction = 'ltr';
+
     const mode = await getMode();
     const systemMode = await getSystemMode();
 
     return (
         <Providers direction={direction}>
-            <AuthGuard locale={lang}>
+            <AuthGuard>
                 <LayoutWrapper
                     systemMode={systemMode}
                     verticalLayout={
                         <VerticalLayout
-                            navigation={<Navigation dictionary={dictionary} mode={mode} />}
+                            navigation={<Navigation mode={mode} />}
                             navbar={<Navbar />}
                             footer={<VerticalFooter />}
                         >
@@ -52,7 +46,7 @@ const Layout = async (props) => {
                         </VerticalLayout>
                     }
                     horizontalLayout={
-                        <HorizontalLayout header={<Header dictionary={dictionary} />} footer={<HorizontalFooter />}>
+                        <HorizontalLayout header={<Header />} footer={<HorizontalFooter />}>
                             {children}
                         </HorizontalLayout>
                     }
@@ -65,7 +59,7 @@ const Layout = async (props) => {
                         <i className="tabler-arrow-up" />
                     </Button>
                 </ScrollToTop>
-                <Customizer dir={direction} />
+                <Customizer dir={direction} disableDirection />
             </AuthGuard>
         </Providers>
     );

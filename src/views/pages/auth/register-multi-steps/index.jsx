@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -30,9 +29,6 @@ import StepBillingDetails from './StepBillingDetails';
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant';
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styled Custom Components
 const RegisterIllustration = styled('img')(({ theme }) => ({
@@ -122,7 +118,7 @@ const RegisterMultiSteps = ({ mode }) => {
     // Hooks
     const { settings } = useSettings();
     const theme = useTheme();
-    const { lang: locale } = useParams();
+
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     const authBackground = useImageVariant(mode, lightImg, darkImg);
 
@@ -162,7 +158,7 @@ const RegisterMultiSteps = ({ mode }) => {
             </div>
             <div className="flex flex-1 justify-center items-center bs-full bg-backgroundPaper">
                 <Link
-                    href={getLocalizedUrl('/', locale)}
+                    href={'/'}
                     className="absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]"
                 >
                     <Logo />

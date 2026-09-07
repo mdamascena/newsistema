@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import Card from '@mui/material/Card';
@@ -22,9 +21,6 @@ import Divider from '@mui/material/Divider';
 import Logo from '@components/layout/shared/Logo';
 import CustomTextField from '@core/components/mui/TextField';
 
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
-
 // Styled Component Imports
 import AuthIllustrationWrapper from './AuthIllustrationWrapper';
 
@@ -33,14 +29,13 @@ const RegisterV1 = () => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
 
     // Hooks
-    const { lang: locale } = useParams();
     const handleClickShowPassword = () => setIsPasswordShown((show) => !show);
 
     return (
         <AuthIllustrationWrapper>
             <Card className="flex flex-col sm:is-[450px]">
                 <CardContent className="sm:!p-12">
-                    <Link href={getLocalizedUrl('/', locale)} className="flex justify-center mbe-6">
+                    <Link href={'/'} className="flex justify-center mbe-6">
                         <Logo />
                     </Link>
                     <div className="flex flex-col gap-1 mbe-6">
@@ -92,11 +87,7 @@ const RegisterV1 = () => {
                         </Button>
                         <div className="flex justify-center items-center flex-wrap gap-2">
                             <Typography>Already have an account?</Typography>
-                            <Typography
-                                component={Link}
-                                href={getLocalizedUrl('/pages/auth/login-v1', locale)}
-                                color="primary.main"
-                            >
+                            <Typography component={Link} href={'/pages/auth/login-v1'} color="primary.main">
                                 Sign in instead
                             </Typography>
                         </div>

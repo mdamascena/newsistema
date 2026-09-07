@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import Card from '@mui/material/Card';
@@ -42,9 +41,6 @@ import CustomAvatar from '@core/components/mui/Avatar';
 import CustomTextField from '@core/components/mui/TextField';
 import OptionMenu from '@core/components/option-menu';
 import TablePaginationComponent from '@components/TablePaginationComponent';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css';
@@ -108,8 +104,6 @@ const ProductListTable = ({ productData }) => {
     const [globalFilter, setGlobalFilter] = useState('');
 
     // Hooks
-    const { lang: locale } = useParams();
-
     const columns = useMemo(
         () => [
             {
@@ -284,7 +278,7 @@ const ProductListTable = ({ productData }) => {
                             variant="contained"
                             component={Link}
                             className="max-sm:is-full is-auto"
-                            href={getLocalizedUrl('/apps/ecommerce/products/add', locale)}
+                            href={'/apps/ecommerce/products/add'}
                             startIcon={<i className="tabler-plus" />}
                         >
                             Add Product

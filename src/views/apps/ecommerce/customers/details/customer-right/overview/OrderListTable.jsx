@@ -5,7 +5,6 @@ import { useState, useEffect, useMemo } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import Card from '@mui/material/Card';
@@ -34,9 +33,6 @@ import {
 import OptionMenu from '@core/components/option-menu';
 import TablePaginationComponent from '@components/TablePaginationComponent';
 import CustomTextField from '@core/components/mui/TextField';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css';
@@ -96,8 +92,6 @@ const OrderListTable = ({ orderData }) => {
     const [globalFilter, setGlobalFilter] = useState('');
 
     // Hooks
-    const { lang: locale } = useParams();
-
     const columns = useMemo(
         () => [
             columnHelper.accessor('order', {
@@ -105,7 +99,7 @@ const OrderListTable = ({ orderData }) => {
                 cell: ({ row }) => (
                     <Typography
                         component={Link}
-                        href={getLocalizedUrl(`/apps/ecommerce/orders/details/${row.original.order}`, locale)}
+                        href={`/apps/ecommerce/orders/details/${row.original.order}`}
                         color="primary.main"
                     >{`#${row.original.order}`}</Typography>
                 )
@@ -140,10 +134,7 @@ const OrderListTable = ({ orderData }) => {
                                 {
                                     text: 'View',
                                     icon: 'tabler-eye',
-                                    href: getLocalizedUrl(
-                                        `/apps/ecommerce/orders/details/${row.original.order}`,
-                                        locale
-                                    ),
+                                    href: `/apps/ecommerce/orders/details/${row.original.order}`,
                                     linkProps: { className: 'flex items-center is-full plb-1.5 pli-4' }
                                 },
                                 {

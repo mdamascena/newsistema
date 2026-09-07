@@ -4,7 +4,7 @@
 import { useRef, useState } from 'react';
 
 // Next Imports
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 // MUI Imports
 import { styled } from '@mui/material/styles';
@@ -25,9 +25,6 @@ import { signOut, useSession } from 'next-auth/react';
 
 // Hook Imports
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styled component for badge content
 const BadgeContentSpan = styled('span')({
@@ -50,7 +47,6 @@ const UserDropdown = () => {
     const router = useRouter();
     const { data: session } = useSession();
     const { settings } = useSettings();
-    const { lang: locale } = useParams();
 
     const handleDropdownOpen = () => {
         !open ? setOpen(true) : setOpen(false);
@@ -58,7 +54,7 @@ const UserDropdown = () => {
 
     const handleDropdownClose = (event, url) => {
         if (url) {
-            router.push(getLocalizedUrl(url, locale));
+            router.push(url);
         }
 
         if (anchorRef.current && anchorRef.current.contains(event?.target)) {

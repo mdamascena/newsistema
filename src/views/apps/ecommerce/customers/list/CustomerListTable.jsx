@@ -5,7 +5,6 @@ import { useState, useEffect, useMemo } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import Card from '@mui/material/Card';
@@ -40,7 +39,6 @@ import TablePaginationComponent from '@components/TablePaginationComponent';
 
 // Util Imports
 import { getInitials } from '@/utils/getInitials';
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Style Imports
 import tableStyles from '@core/styles/table.module.css';
@@ -100,9 +98,6 @@ const CustomerListTable = ({ customerData }) => {
     const [data, setData] = useState(...[customerData]);
     const [globalFilter, setGlobalFilter] = useState('');
 
-    // Hooks
-    const { lang: locale } = useParams();
-
     const columns = useMemo(
         () => [
             {
@@ -136,10 +131,7 @@ const CustomerListTable = ({ customerData }) => {
                             <Typography
                                 component={Link}
                                 color="text.primary"
-                                href={getLocalizedUrl(
-                                    `/apps/ecommerce/customers/details/${row.original.customerId}`,
-                                    locale
-                                )}
+                                href={`/apps/ecommerce/customers/details/${row.original.customerId}`}
                                 className="font-medium hover:text-primary"
                             >
                                 {row.original.customer}

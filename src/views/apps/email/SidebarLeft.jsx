@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import Drawer from '@mui/material/Drawer';
@@ -18,9 +17,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // Components Imports
 import ComposeMail from './ComposeMail';
 import CustomChip from '@core/components/mui/Chip';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styles Imports
 import styles from './styles.module.css';
@@ -68,8 +64,6 @@ const SidebarLeft = (props) => {
     const [openCompose, setOpenCompose] = useState(false);
 
     // Hooks
-    const { lang: locale } = useParams();
-
     const folderCounts = store.emails.reduce((counts, email) => {
         if (!email.isRead && email.folder !== 'trash') {
             counts[email.folder] = (counts[email.folder] || 0) + 1;
@@ -109,7 +103,7 @@ const SidebarLeft = (props) => {
                         {Object.entries(icons).map(([key, value]) => (
                             <Link
                                 key={key}
-                                href={getLocalizedUrl(`/apps/email/${key}`, locale)}
+                                href={`/apps/email/${key}`}
                                 prefetch
                                 className={classnames(
                                     'flex items-center justify-between plb-1 pli-6 gap-2.5 min-bs-8 cursor-pointer',
@@ -152,7 +146,7 @@ const SidebarLeft = (props) => {
                             {uniqueLabels.map((labelName) => (
                                 <Link
                                     key={labelName}
-                                    href={getLocalizedUrl(`/apps/email/label/${labelName}`, locale)}
+                                    href={`/apps/email/label/${labelName}`}
                                     prefetch
                                     className={classnames('flex items-center gap-x-2 pli-6 cursor-pointer', {
                                         [styles.activeSidebarListItem]: labelName === label

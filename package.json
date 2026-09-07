@@ -13,7 +13,6 @@
     "build:icons": "tsx src/assets/iconify-icons/bundle-icons-css.mjs",
     "migrate": "dotenv -e .env -- npx prisma migrate dev",
     "postinstall": "prisma generate && npm run build:icons",
-    "removeI18n": "tsx src/remove-translation-scripts/index.js",
     "clean": "rm -rf .next",
     "clear": "rm -rf node_modules .next"
   },
@@ -26,7 +25,6 @@
     "@emotion/styled": "11.14.1",
     "@floating-ui/dom": "1.7.4",
     "@floating-ui/react": "0.27.16",
-    "@formatjs/intl-localematcher": "0.6.2",
     "@formkit/drag-and-drop": "0.5.3",
     "@fullcalendar/common": "5.11.5",
     "@fullcalendar/core": "6.1.20",
@@ -67,7 +65,6 @@
     "input-otp": "1.4.2",
     "keen-slider": "6.8.6",
     "mapbox-gl": "3.17.0",
-    "negotiator": "1.0.0",
     "next": "16.1.1",
     "next-auth": "4.24.13",
     "react": "19.2.3",

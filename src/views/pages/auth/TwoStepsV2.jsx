@@ -3,9 +3,6 @@
 // React Imports
 import { useState } from 'react';
 
-// Next Imports
-import { useParams } from 'next/navigation';
-
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { styled, useTheme } from '@mui/material/styles';
@@ -24,9 +21,6 @@ import Logo from '@components/layout/shared/Logo';
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant';
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Style Imports
 import styles from '@/libs/styles/inputOtp.module.css';
@@ -85,7 +79,7 @@ const TwoStepsV2 = ({ mode }) => {
     // Hooks
     const { settings } = useSettings();
     const theme = useTheme();
-    const { lang: locale } = useParams();
+
     const hidden = useMediaQuery(theme.breakpoints.down('md'));
     const authBackground = useImageVariant(mode, lightImg, darkImg);
     const characterIllustration = useImageVariant(mode, lightIllustration, darkIllustration);
@@ -111,7 +105,7 @@ const TwoStepsV2 = ({ mode }) => {
             </div>
             <div className="flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]">
                 <Link
-                    href={getLocalizedUrl('/', locale)}
+                    href={'/'}
                     className="absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]"
                 >
                     <Logo />

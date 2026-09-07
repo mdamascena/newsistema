@@ -3,20 +3,14 @@ import Providers from '@components/Providers';
 import BlankLayout from '@layouts/BlankLayout';
 import NotFound from '@views/NotFound';
 
-// Config Imports
-import { i18n } from '@configs/i18n';
-
 // Util Imports
 import { getServerMode, getSystemMode } from '@core/utils/serverHelpers';
 
 const NotFoundPage = async (props) => {
-    const params = await props.params;
-
     // Type guard to ensure lang is a valid Locale
-    const lang = i18n.locales.includes(params.lang) ? params.lang : i18n.defaultLocale;
 
     // Vars
-    const direction = i18n.langDirection[lang];
+    const direction = 'ltr';
     const mode = await getServerMode();
     const systemMode = await getSystemMode();
 

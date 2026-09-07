@@ -67,6 +67,7 @@ const Menu = (props, ref) => {
                 const submenuIndex = openSubmenuCopy.findIndex((submenu) => submenu.id === id);
                 const submenuExists = submenuIndex >= 0;
                 const isAccordion = subMenuOpenBehavior === 'accordion';
+
                 const inactiveSubmenuIndex = openSubmenuCopy.findIndex(
                     (submenu) => !submenu.active && submenu.level === 0
                 );

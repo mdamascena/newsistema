@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -36,9 +36,6 @@ import themeConfig from '@configs/themeConfig';
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant';
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -89,7 +86,7 @@ const Login = ({ mode }) => {
     // Hooks
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { lang: locale } = useParams();
+
     const { settings } = useSettings();
     const theme = useTheme();
     const hidden = useMediaQuery(theme.breakpoints.down('md'));
@@ -128,7 +125,7 @@ const Login = ({ mode }) => {
             // Vars
             const redirectURL = searchParams.get('redirectTo') ?? '/';
 
-            router.replace(getLocalizedUrl(redirectURL, locale));
+            router.replace(redirectURL);
         } else {
             if (res?.error) {
                 const error = JSON.parse(res.error);
@@ -241,7 +238,7 @@ const Login = ({ mode }) => {
                                 className="text-end"
                                 color="primary.main"
                                 component={Link}
-                                href={getLocalizedUrl('/forgot-password', locale)}
+                                href={'/forgot-password'}
                             >
                                 Forgot password?
                             </Typography>
@@ -251,11 +248,7 @@ const Login = ({ mode }) => {
                         </Button>
                         <div className="flex justify-center items-center flex-wrap gap-2">
                             <Typography>New on our platform?</Typography>
-                            <Typography
-                                component={Link}
-                                href={getLocalizedUrl('/register', locale)}
-                                color="primary.main"
-                            >
+                            <Typography component={Link} href={'/register'} color="primary.main">
                                 Create an account
                             </Typography>
                         </div>

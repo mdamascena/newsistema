@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -31,9 +30,6 @@ import themeConfig from '@configs/themeConfig';
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant';
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -72,7 +68,6 @@ const LoginV2 = ({ mode }) => {
     const borderedLightIllustration = '/images/illustrations/auth/v2-login-light-border.png';
 
     // Hooks
-    const { lang: locale } = useParams();
     const { settings } = useSettings();
     const theme = useTheme();
     const hidden = useMediaQuery(theme.breakpoints.down('md'));
@@ -106,7 +101,7 @@ const LoginV2 = ({ mode }) => {
             </div>
             <div className="flex justify-center items-center bs-full bg-backgroundPaper min-is-full! p-6 md:min-is-[unset]! md:p-12 md:is-[480px]">
                 <Link
-                    href={getLocalizedUrl('/', locale)}
+                    href={'/'}
                     className="absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:start-[38px]"
                 >
                     <Logo />
@@ -156,7 +151,7 @@ const LoginV2 = ({ mode }) => {
                                 className="text-end"
                                 color="primary.main"
                                 component={Link}
-                                href={getLocalizedUrl('/pages/auth/forgot-password-v2', locale)}
+                                href={'/pages/auth/forgot-password-v2'}
                             >
                                 Forgot password?
                             </Typography>
@@ -166,11 +161,7 @@ const LoginV2 = ({ mode }) => {
                         </Button>
                         <div className="flex justify-center items-center flex-wrap gap-2">
                             <Typography>New on our platform?</Typography>
-                            <Typography
-                                component={Link}
-                                href={getLocalizedUrl('/pages/auth/register-v2', locale)}
-                                color="primary.main"
-                            >
+                            <Typography component={Link} href={'/pages/auth/register-v2'} color="primary.main">
                                 Create an account
                             </Typography>
                         </div>

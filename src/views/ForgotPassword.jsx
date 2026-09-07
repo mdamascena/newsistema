@@ -2,7 +2,6 @@
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -21,9 +20,6 @@ import CustomTextField from '@core/components/mui/TextField';
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant';
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styled Custom Components
 const ForgotPasswordIllustration = styled('img')(({ theme }) => ({
@@ -57,7 +53,6 @@ const ForgotPassword = ({ mode }) => {
     const lightIllustration = '/images/illustrations/auth/v2-forgot-password-light.png';
 
     // Hooks
-    const { lang: locale } = useParams();
     const { settings } = useSettings();
     const theme = useTheme();
     const hidden = useMediaQuery(theme.breakpoints.down('md'));
@@ -79,7 +74,7 @@ const ForgotPassword = ({ mode }) => {
             </div>
             <div className="flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]">
                 <Link
-                    href={getLocalizedUrl('/login', locale)}
+                    href={'/login'}
                     className="absolute block-start-5 sm:block-start-[33px] inline-start-6 sm:inline-start-[38px]"
                 >
                     <Logo />
@@ -102,7 +97,7 @@ const ForgotPassword = ({ mode }) => {
                             Send Reset Link
                         </Button>
                         <Typography className="flex justify-center items-center" color="primary.main">
-                            <Link href={getLocalizedUrl('/login', locale)} className="flex items-center gap-1.5">
+                            <Link href={'/login'} className="flex items-center gap-1.5">
                                 <DirectionalIcon
                                     ltrIconClass="tabler-chevron-left"
                                     rtlIconClass="tabler-chevron-right"

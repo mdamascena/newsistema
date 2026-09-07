@@ -2,7 +2,6 @@
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -15,9 +14,6 @@ import classnames from 'classnames';
 
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Styled Components
 const MaskImg = styled('img')({
@@ -36,7 +32,7 @@ const NotAuthorized = ({ mode }) => {
 
     // Hooks
     const theme = useTheme();
-    const { lang: locale } = useParams();
+
     const hidden = useMediaQuery(theme.breakpoints.down('md'));
     const miscBackground = useImageVariant(mode, lightImg, darkImg);
 
@@ -50,7 +46,7 @@ const NotAuthorized = ({ mode }) => {
                     <Typography variant="h4">You are not authorized! 🔐</Typography>
                     <Typography>You don&#39;t have permission to access this page. Go Home!</Typography>
                 </div>
-                <Button href={getLocalizedUrl('/', locale)} component={Link} variant="contained">
+                <Button href={'/'} component={Link} variant="contained">
                     Back To Home
                 </Button>
                 <img

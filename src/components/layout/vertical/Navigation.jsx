@@ -5,7 +5,6 @@ import { useEffect, useRef } from 'react';
 
 // Next Imports
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 // MUI Imports
 import { styled, useColorScheme, useTheme } from '@mui/material/styles';
@@ -18,9 +17,6 @@ import Logo from '@components/layout/shared/Logo';
 // Hook Imports
 import useVerticalNav from '@menu/hooks/useVerticalNav';
 import { useSettings } from '@core/hooks/useSettings';
-
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
 
 // Style Imports
 import navigationCustomStyles from '@core/styles/vertical/navigationCustomStyles';
@@ -43,12 +39,12 @@ const StyledBoxForShadow = styled('div')(({ theme }) => ({
 
 const Navigation = (props) => {
     // Props
-    const { dictionary, mode } = props;
+    const { mode } = props;
 
     // Hooks
     const verticalNavOptions = useVerticalNav();
     const { updateSettings, settings } = useSettings();
-    const { lang: locale } = useParams();
+
     const { mode: muiMode, systemMode: muiSystemMode } = useColorScheme();
     const theme = useTheme();
 
@@ -102,7 +98,7 @@ const Navigation = (props) => {
         >
             {/* Nav Header including Logo & nav toggle icons  */}
             <NavHeader>
-                <Link href={getLocalizedUrl('/', locale)}>
+                <Link href={'/'}>
                     <Logo />
                 </Link>
                 {!(isCollapsed && !isHovered) && (
@@ -115,7 +111,7 @@ const Navigation = (props) => {
                 )}
             </NavHeader>
             <StyledBoxForShadow ref={shadowRef} />
-            <VerticalMenu dictionary={dictionary} scrollMenu={scrollMenu} />
+            <VerticalMenu scrollMenu={scrollMenu} />
         </VerticalNav>
     );
 };

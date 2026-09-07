@@ -31,7 +31,7 @@ const StyledDiv = styled.div`
   `}
 `;
 
-const Navigation = ({ dictionary }) => {
+const Navigation = ({}) => {
     // Hooks
     const { settings } = useSettings();
     const { isBreakpointReached } = useHorizontalNav();
@@ -55,7 +55,7 @@ const Navigation = ({ dictionary }) => {
                     )
                 })}
             >
-                <HorizontalMenu dictionary={dictionary} />
+                <HorizontalMenu />
             </StyledDiv>
         </div>
     );

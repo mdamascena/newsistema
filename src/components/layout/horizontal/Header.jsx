@@ -9,7 +9,7 @@ import LayoutHeader from '@layouts/components/horizontal/Header';
 // Hook Imports
 import useHorizontalNav from '@menu/hooks/useHorizontalNav';
 
-const Header = ({ dictionary }) => {
+const Header = ({}) => {
     // Hooks
     const { isBreakpointReached } = useHorizontalNav();
 
@@ -19,9 +19,9 @@ const Header = ({ dictionary }) => {
                 <Navbar>
                     <NavbarContent />
                 </Navbar>
-                {!isBreakpointReached && <Navigation dictionary={dictionary} />}
+                {!isBreakpointReached && <Navigation />}
             </LayoutHeader>
-            {isBreakpointReached && <Navigation dictionary={dictionary} />}
+            {isBreakpointReached && <Navigation />}
         </>
     );
 };

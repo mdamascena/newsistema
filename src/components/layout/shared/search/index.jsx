@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 
 // Next Imports
-import { useParams, useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 // MUI Imports
 import IconButton from '@mui/material/IconButton';
@@ -22,9 +22,6 @@ import NoResult from './NoResult';
 import useVerticalNav from '@menu/hooks/useVerticalNav';
 import { useSettings } from '@core/hooks/useSettings';
 
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
-
 // Style Imports
 import './styles.css';
 
@@ -39,7 +36,7 @@ const transformedData = data.reduce((acc, item) => {
         id: item.id,
         name: item.name,
         url: item.url,
-        excludeLang: item.excludeLang,
+
         icon: item.icon,
         shortcut: item.shortcut
     };
@@ -121,14 +118,12 @@ const NavSearch = () => {
     const router = useRouter();
     const pathName = usePathname();
     const { settings } = useSettings();
-    const { lang: locale } = useParams();
+
     const { isBreakpointReached } = useVerticalNav();
 
     // When an item is selected from the search results
     const onSearchItemSelect = (item) => {
-        item.url.startsWith('http')
-            ? window.open(item.url, '_blank')
-            : router.push(item.excludeLang ? item.url : getLocalizedUrl(item.url, locale));
+        item.url.startsWith('http') ? window.open(item.url, '_blank') : router.push(item.url);
         setOpen(false);
     };
 
@@ -217,7 +212,7 @@ const NavSearch = () => {
                                                 shortcut={item.shortcut}
                                                 key={index}
                                                 currentPath={pathName}
-                                                url={getLocalizedUrl(item.url, locale)}
+                                                url={item.url}
                                                 value={`${item.name} ${section.title} ${item.shortcut}`}
                                                 onSelect={() => onSearchItemSelect(item)}
                                             >

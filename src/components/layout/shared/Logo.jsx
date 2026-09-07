@@ -61,8 +61,8 @@ const Logo = ({ color }) => {
     // Determine which logo to show
     const logoSrc = showExpandedLogo
         ? isDarkMode
-          ? '/images/logos/logowhite.png'
-          : '/images/logos/logoblue.png'
+            ? '/images/logos/logowhite.png'
+            : '/images/logos/logoblue.png'
         : isDarkMode
           ? '/images/logos/symbolwhite.png'
           : '/images/logos/symbolblue.png';

@@ -1,6 +1,5 @@
 // MUI Imports
 import Button from '@mui/material/Button';
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
 // Third-party Imports
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -39,33 +38,23 @@ const Layout = async ({ children }) => {
     const systemMode = await getSystemMode();
 
     return (
-        <html id="__next" suppressHydrationWarning>
-            <head>
-                <link rel="icon" href="/images/icons/favicon.png?v=3" type="image/png" />
-                <link rel="shortcut icon" href="/images/icons/favicon.png?v=3" type="image/png" />
-                <link rel="apple-touch-icon" href="/images/icons/favicon.png?v=3" />
-            </head>
-            <body className="flex is-full min-bs-full flex-auto flex-col">
-                <InitColorSchemeScript attribute="data" defaultMode={systemMode} />
-                <Providers direction="ltr">
-                    <BlankLayout systemMode={systemMode}>
-                        <IntersectionProvider>
-                            <FrontLayout>
-                                {children}
-                                <ScrollToTop className="mui-fixed">
-                                    <Button
-                                        variant="contained"
-                                        className="is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center"
-                                    >
-                                        <i className="tabler-arrow-up" />
-                                    </Button>
-                                </ScrollToTop>
-                            </FrontLayout>
-                        </IntersectionProvider>
-                    </BlankLayout>
-                </Providers>
-            </body>
-        </html>
+        <Providers direction="ltr">
+            <BlankLayout systemMode={systemMode}>
+                <IntersectionProvider>
+                    <FrontLayout>
+                        {children}
+                        <ScrollToTop className="mui-fixed">
+                            <Button
+                                variant="contained"
+                                className="is-10 bs-10 rounded-full p-0 min-is-0 flex items-center justify-center"
+                            >
+                                <i className="tabler-arrow-up" />
+                            </Button>
+                        </ScrollToTop>
+                    </FrontLayout>
+                </IntersectionProvider>
+            </BlankLayout>
+        </Providers>
     );
 };
 

@@ -1,19 +1,11 @@
-// Next Imports
-import { useParams } from 'next/navigation';
-
 // Component Imports
 import { SubMenu as HorizontalSubMenu, MenuItem as HorizontalMenuItem } from '@menu/horizontal-menu';
 import { SubMenu as VerticalSubMenu, MenuItem as VerticalMenuItem, MenuSection } from '@menu/vertical-menu';
 import CustomChip from '@core/components/mui/Chip';
 
-// Util Imports
-import { getLocalizedUrl } from '@/utils/i18n';
-
 // Generate a menu from the menu data array
 export const GenerateVerticalMenu = ({ menuData }) => {
     // Hooks
-    const { lang: locale } = useParams();
-
     const renderMenuItems = (data) => {
         // Use the map method to iterate through the array of menu data
         return data.map((item, index) => {
@@ -37,8 +29,10 @@ export const GenerateVerticalMenu = ({ menuData }) => {
             if (subMenuItem.children) {
                 const { children, icon, prefix, suffix, ...rest } = subMenuItem;
                 const Icon = icon ? <i className={icon} /> : null;
+
                 const subMenuPrefix =
                     prefix && prefix.label ? <CustomChip size="small" round="true" {...prefix} /> : prefix;
+
                 const subMenuSuffix =
                     suffix && suffix.label ? <CustomChip size="small" round="true" {...suffix} /> : suffix;
 
@@ -57,16 +51,15 @@ export const GenerateVerticalMenu = ({ menuData }) => {
             }
 
             // If the current item is neither a section nor a sub menu, return a MenuItem component
-            const { label, excludeLang, icon, prefix, suffix, ...rest } = menuItem;
+            const { label, icon, prefix, suffix, ...rest } = menuItem;
 
             // Localize the href
-            const href = rest.href?.startsWith('http')
-                ? rest.href
-                : rest.href && (excludeLang ? rest.href : getLocalizedUrl(rest.href, locale));
 
             const Icon = icon ? <i className={icon} /> : null;
+
             const menuItemPrefix =
                 prefix && prefix.label ? <CustomChip size="small" round="true" {...prefix} /> : prefix;
+
             const menuItemSuffix =
                 suffix && suffix.label ? <CustomChip size="small" round="true" {...suffix} /> : suffix;
 
@@ -76,7 +69,7 @@ export const GenerateVerticalMenu = ({ menuData }) => {
                     prefix={menuItemPrefix}
                     suffix={menuItemSuffix}
                     {...rest}
-                    href={href}
+                    href={menuItem.href}
                     {...(Icon && { icon: Icon })}
                 >
                     {label}
@@ -91,8 +84,6 @@ export const GenerateVerticalMenu = ({ menuData }) => {
 // Generate a menu from the menu data array
 export const GenerateHorizontalMenu = ({ menuData }) => {
     // Hooks
-    const { lang: locale } = useParams();
-
     const renderMenuItems = (data) => {
         // Use the map method to iterate through the array of menu data
         return data.map((item, index) => {
@@ -103,8 +94,10 @@ export const GenerateHorizontalMenu = ({ menuData }) => {
             if (subMenuItem.children) {
                 const { children, icon, prefix, suffix, ...rest } = subMenuItem;
                 const Icon = icon ? <i className={icon} /> : null;
+
                 const subMenuPrefix =
                     prefix && prefix.label ? <CustomChip size="small" round="true" {...prefix} /> : prefix;
+
                 const subMenuSuffix =
                     suffix && suffix.label ? <CustomChip size="small" round="true" {...suffix} /> : suffix;
 
@@ -123,16 +116,15 @@ export const GenerateHorizontalMenu = ({ menuData }) => {
             }
 
             // If the current item is not a sub menu, return a MenuItem component
-            const { label, excludeLang, icon, prefix, suffix, ...rest } = menuItem;
+            const { label, icon, prefix, suffix, ...rest } = menuItem;
 
             // Localize the href
-            const href = rest.href?.startsWith('http')
-                ? rest.href
-                : rest.href && (excludeLang ? rest.href : getLocalizedUrl(rest.href, locale));
 
             const Icon = icon ? <i className={icon} /> : null;
+
             const menuItemPrefix =
                 prefix && prefix.label ? <CustomChip size="small" round="true" {...prefix} /> : prefix;
+
             const menuItemSuffix =
                 suffix && suffix.label ? <CustomChip size="small" round="true" {...suffix} /> : suffix;
 
@@ -142,7 +134,7 @@ export const GenerateHorizontalMenu = ({ menuData }) => {
                     prefix={menuItemPrefix}
                     suffix={menuItemSuffix}
                     {...rest}
-                    href={href}
+                    href={menuItem.href}
                     {...(Icon && { icon: Icon })}
                 >
                     {label}
