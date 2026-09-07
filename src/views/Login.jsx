@@ -36,6 +36,9 @@ import themeConfig from '@configs/themeConfig';
 import { useImageVariant } from '@core/hooks/useImageVariant';
 import { useSettings } from '@core/hooks/useSettings';
 
+// Util Imports
+import { maskCpf } from '@/utils/masks';
+
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
     zIndex: 2,
@@ -64,8 +67,8 @@ const schema = object({
     cpf: pipe(
         string(),
         nonEmpty('Informe o CPF'),
-        transform((value) => value.replace(/D/g, '')),
-        regex(/^d{11}$/, 'O CPF deve ter 11 dígitos')
+        transform((value) => value.replace(/\D/g, '')),
+        regex(/^\d{11}$/, 'O CPF deve ter 11 dígitos')
     ),
     password: pipe(string(), nonEmpty('Informe a senha'), minLength(5, 'A senha deve ter ao menos 5 caracteres'))
 });
@@ -175,10 +178,10 @@ const Login = ({ mode }) => {
                                     fullWidth
                                     type="text"
                                     label="CPF"
-                                    placeholder="Somente números"
+                                    placeholder="000.000.000-00"
                                     slotProps={{ htmlInput: { inputMode: 'numeric', maxLength: 14 } }}
                                     onChange={(e) => {
-                                        field.onChange(e.target.value);
+                                        field.onChange(maskCpf(e.target.value));
                                         errorState !== null && setErrorState(null);
                                     }}
                                     {...((errors.cpf || errorState !== null) && {
