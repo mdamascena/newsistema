@@ -75,13 +75,6 @@ const data = [
         section: 'Front Pages'
     },
     {
-        id: '11',
-        name: 'eCommerce - Dashboard',
-        url: '/apps/ecommerce/dashboard',
-        icon: 'tabler-shopping-cart',
-        section: 'Apps'
-    },
-    {
         id: '12',
         name: 'eCommerce - Product List',
         url: '/apps/ecommerce/products/list',
@@ -100,48 +93,6 @@ const data = [
         name: 'eCommerce - Product Category',
         url: '/apps/ecommerce/products/category',
         icon: 'tabler-list-details',
-        section: 'Apps'
-    },
-    {
-        id: '15',
-        name: 'eCommerce - Order List',
-        url: '/apps/ecommerce/orders/list',
-        icon: 'tabler-list',
-        section: 'Apps'
-    },
-    {
-        id: '16',
-        name: 'eCommerce - Order Details',
-        url: '/apps/ecommerce/orders/details/5434',
-        icon: 'tabler-list-check',
-        section: 'Apps'
-    },
-    {
-        id: '17',
-        name: 'eCommerce - Customer List',
-        url: '/apps/ecommerce/customers/list',
-        icon: 'tabler-user',
-        section: 'Apps'
-    },
-    {
-        id: '18',
-        name: 'eCommerce - Customer Details',
-        url: '/apps/ecommerce/customers/details/879861',
-        icon: 'tabler-list',
-        section: 'Apps'
-    },
-    {
-        id: '19',
-        name: 'eCommerce - Manage Reviews',
-        url: '/apps/ecommerce/manage-reviews',
-        icon: 'tabler-quote',
-        section: 'Apps'
-    },
-    {
-        id: '20',
-        name: 'eCommerce - Referrals',
-        url: '/apps/ecommerce/referrals',
-        icon: 'tabler-users-group',
         section: 'Apps'
     },
     {
@@ -247,13 +198,6 @@ const data = [
         name: 'User List',
         url: '/apps/user/list',
         icon: 'tabler-user',
-        section: 'Apps'
-    },
-    {
-        id: '36',
-        name: 'User View',
-        url: '/apps/user/view',
-        icon: 'tabler-file-text',
         section: 'Apps'
     },
     {

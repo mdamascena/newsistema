@@ -89,36 +89,17 @@ const VerticalMenu = ({ scrollMenu }) => {
                     </MenuItem>
                 </SubMenu>
                 <MenuSection label="appsPages">
-                    <SubMenu label="eCommerce" icon={<i className="tabler-shopping-cart" />}>
-                        <MenuItem href="/apps/ecommerce/dashboard">dashboard</MenuItem>
-                        <SubMenu label="products">
-                            <MenuItem href="/apps/ecommerce/products/list">list</MenuItem>
-                            <MenuItem href="/apps/ecommerce/products/add">add</MenuItem>
-                            <MenuItem href="/apps/ecommerce/products/category">category</MenuItem>
+                    <SubMenu label="Empréstimos" icon={<i className="tabler-cash" />}>
+                        <SubMenu label="Produtos">
+                            <MenuItem href="/apps/emprestimos/produtos/geral">Geral</MenuItem>
+                            <MenuItem href="/apps/emprestimos/produtos/credluz">CredLuz</MenuItem>
+                            <MenuItem href="/apps/emprestimos/produtos/fgts">Fgts</MenuItem>
                         </SubMenu>
-                        <SubMenu label="orders">
-                            <MenuItem href="/apps/ecommerce/orders/list">list</MenuItem>
-                            <MenuItem
-                                href="/apps/ecommerce/orders/details/5434"
-                                exactMatch={false}
-                                activeUrl="/apps/ecommerce/orders/details"
-                            >
-                                details
-                            </MenuItem>
-                        </SubMenu>
-                        <SubMenu label="customers">
-                            <MenuItem href="/apps/ecommerce/customers/list">list</MenuItem>
-                            <MenuItem
-                                href="/apps/ecommerce/customers/details/879861"
-                                exactMatch={false}
-                                activeUrl="/apps/ecommerce/customers/details"
-                            >
-                                details
-                            </MenuItem>
-                        </SubMenu>
-                        <MenuItem href="/apps/ecommerce/manage-reviews">manageReviews</MenuItem>
-                        <MenuItem href="/apps/ecommerce/referrals">referrals</MenuItem>
-                        <MenuItem href="/apps/ecommerce/settings">settings</MenuItem>
+                        <MenuItem href="/apps/ecommerce/settings">Configurações</MenuItem>
+                    </SubMenu>
+                    <SubMenu label="Usuários" icon={<i className="tabler-user" />}>
+                        <MenuItem href="/apps/usuarios/cliente">Cliente</MenuItem>
+                        <MenuItem href="/apps/usuarios/funcionario">Funcionário</MenuItem>
                     </SubMenu>
                     <SubMenu label="academy" icon={<i className="tabler-school" />}>
                         <MenuItem href="/apps/academy/dashboard">dashboard</MenuItem>
@@ -159,10 +140,6 @@ const VerticalMenu = ({ scrollMenu }) => {
                             edit
                         </MenuItem>
                         <MenuItem href="/apps/invoice/add">add</MenuItem>
-                    </SubMenu>
-                    <SubMenu label="user" icon={<i className="tabler-user" />}>
-                        <MenuItem href="/apps/user/list">list</MenuItem>
-                        <MenuItem href="/apps/user/view">view</MenuItem>
                     </SubMenu>
                     <SubMenu label="rolesPermissions" icon={<i className="tabler-lock" />}>
                         <MenuItem href="/apps/roles">roles</MenuItem>
